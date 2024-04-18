@@ -12,11 +12,13 @@ import java.time.Duration;
 public class GraphqlController {
     long interval = 100;
     long multiple = 8;
+    long firstId = 5;
 
     @SubscriptionMapping
     public Flux<Video> searchVideo() {
         return Flux.interval(Duration.ofMillis(interval)).map(s -> new Video(s.intValue() + 1))
-                .take(9);
+                .take(9)
+                .doOnNext(video -> System.out.println("searchVideo: " + video.id));
     }
 
     @SchemaMapping
@@ -26,7 +28,7 @@ public class GraphqlController {
 
     @SchemaMapping
     public Mono<Boolean> isFavorite(Video video) {
-        long delay = (interval * multiple) - (interval * multiple / 10) * video.id;
+        long delay = video.id == firstId ? 0 : (interval * multiple) - (interval * multiple / 10) * video.id;
         return Mono.delay(Duration.ofMillis(delay))
                 .then(Mono.just(Boolean.TRUE))
                 .doOnNext(s -> System.out.println("SchemaMapping: " + video.id + " delay: " + delay));
