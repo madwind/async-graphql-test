@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: async-graphql-test
+  graphql:
+    graphiql:
+      enabled: true
+    websocket:
+      path: /graphql

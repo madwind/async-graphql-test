@@ -1,0 +1,12 @@
+type Query{
+    ok:String
+}
+type Subscription{
+    searchVideo:Video
+}
+type Video{
+    id:ID
+    name: String
+    vodTime: String
+    isFavorite: Boolean
+}
