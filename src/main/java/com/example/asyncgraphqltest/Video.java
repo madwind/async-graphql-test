@@ -1,11 +1,9 @@
 package com.example.asyncgraphqltest;
 
 public class Video {
-    int id;
-    String vodTime;
+    long id;
 
-    public Video(int id, String vodTime) {
+    public Video(long id) {
         this.id = id;
-        this.vodTime = vodTime;
     }
 }
